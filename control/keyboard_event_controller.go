@@ -1,7 +1,6 @@
 package control
 
 import (
-	"fmt"
 	"sync"
 
 	"github.com/nsf/termbox-go"
@@ -38,29 +37,13 @@ func (c *keyboardEventController) pollingKeyboardEvent(pollingChan chan<- int) {
 	defer termbox.Close()
 
 	running := true
-
 	for running {
 		switch event := termbox.PollEvent(); event.Type {
 		case termbox.EventKey:
-			if event.Key == termbox.KeyArrowDown {
-				fmt.Println("Press Down")
-			} else if event.Key == termbox.KeyArrowUp {
-				fmt.Println("Press Up")
-			} else if event.Key == termbox.KeyArrowLeft {
-				fmt.Println("Press Left")
-			} else if event.Key == termbox.KeyArrowRight {
-				fmt.Println("Press Right")
-			} else if event.Key == termbox.KeyEsc {
-				running = false
-				pollingChan <- 1
-				fmt.Println("Exit")
-			} else {
-				fmt.Println("Dont care")
+			if controlEvent, exist := controlEventMap[event.Key]; exist {
+				pollingChan <- controlEvent
 			}
-			termbox.Flush()
-		default:
-			fmt.Println("Dont care")
-			termbox.Flush()
 		}
+		termbox.Flush()
 	}
 }
