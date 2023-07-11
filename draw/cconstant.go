@@ -18,4 +18,5 @@ const (
 	Square         Image = "[]"
 	HorizontalLine Image = "--"
 	VerticalLine   Image = "|"
+	Space          Image = "  "
 )
