@@ -3,6 +3,7 @@ package draw
 type (
 	Color string
 	Image string
+	Type  int
 )
 
 const (
@@ -16,7 +17,12 @@ const (
 
 const (
 	Square         Image = "[]"
-	HorizontalLine Image = "--"
-	VerticalLine   Image = "|"
+	HorizontalLine Image = "=="
+	VerticalLine   Image = "||"
 	Space          Image = "  "
+)
+
+const (
+	Edge  Type = 0
+	Empty Type = 1
 )
